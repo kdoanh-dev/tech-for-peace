@@ -287,22 +287,6 @@ startBtn.addEventListener('click', () => {
     });
 });
 
-// Code cho nút nhạc nền
-musicBtn.addEventListener('click', () => {
-  isMusicPlaying = !isMusicPlaying;
-  if (isMusicPlaying) {
-    // Tắt Tuyên ngôn nếu đang phát
-    declarationAudio.pause();
-    declarationAudio.currentTime = 0;
-    
-    // Phát nhạc nền
-    bgMusic.play().catch(error => console.error("Lỗi phát nhạc nền:", error));
-    musicBtn.textContent = '🔇';
-  } else {
-    bgMusic.pause();
-    musicBtn.textContent = '🔈';
-  }
-});
 // --- KẾT THÚC CODE MÀN HÌNH CHÀO MỪNG ---
 
 
