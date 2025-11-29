@@ -9,186 +9,193 @@
 </head>
 <body class="content-hidden">
 
-<div class="welcome-screen-backdrop" id="welcomeScreen">
-  <div class="welcome-screen-content">
-    <img src="https://noibo.kiengiang.dcs.vn/uploads/news/2023_08/anh-1.jpg" alt="Chủ tịch Hồ Chí Minh đọc Tuyên ngôn Độc lập">
-    <h1>Khởi nguồn câu chuyện Hòa bình</h1>
-    <p>Ngày 2/9/1945, tại Quảng trường Ba Đình, Chủ tịch Hồ Chí Minh đã đọc bản Tuyên ngôn Độc lập, khai sinh ra nền <b>Hòa bình Độc lập</b> của dân tộc.
-    <br><br>
-    Dự án này là nơi bạn <b>dùng công nghệ để bày tỏ lòng tri ân và viết tiếp cam kết hòa bình</b> của tuổi trẻ Việt Nam. Hãy lắng nghe âm thanh lịch sử này và bắt đầu hành động.</p>
-    <button class="btn" id="startBtn" style="font-size: 18px; padding: 15px 30px;">
-      [ Lắng nghe & Bắt đầu ]
-    </button>
-  </div>
-</div>
-<header>
-<div class="brand">
-    <div class="logo">
-      <svg xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd" clip-rule="evenodd" viewBox="0 0 512 512"><path fill="#4D4D4D" fill-rule="nonzero" d="M256 0c58.401 0 111.284 23.683 149.558 61.957 38.274 38.274 61.957 91.157 61.957 149.558 0 58.402-23.683 111.285-61.957 149.559S314.401 423.031 256 423.031c-58.395 0-111.284-23.683-149.559-61.957-38.274-38.274-61.956-91.163-61.956-149.559 0-58.401 23.682-111.284 61.956-149.558C144.716 23.683 197.599 0 256 0z"/><path fill="#fff" fill-rule="nonzero" d="M256.001 16.192c53.934 0 102.769 21.866 138.114 57.21 35.343 35.346 57.211 84.18 57.211 138.114 0 53.935-21.868 102.769-57.213 138.113-35.343 35.346-84.178 57.212-138.112 57.212-53.935 0-102.769-21.866-138.115-57.21-35.343-35.346-57.21-84.18-57.21-138.115 0-53.934 21.867-102.768 57.21-138.114 35.346-35.344 84.18-57.21 138.115-57.21z"/><path fill="#DA251D" fill-rule="nonzero" d="M323.797 377.003H188.205c-65.131-26.709-111.006-90.736-111.006-165.487 0-98.751 80.05-178.802 178.802-178.802 98.749 0 178.802 80.051 178.802 178.802 0 74.751-45.876 138.778-111.006 165.487z"/><path fill="#ff0" fill-rule="nonzero" d="M254.629 230.28l42.622 30.953-16.273-50.12 42.64-30.967H270.92l-16.291-50.181-16.291 50.181H185.64l42.639 30.967-16.273 50.12z"/><path fill="#4D4D4D" fill-rule="nonzero" d="M104.407 325.051h303.179c14.713 0 24.95 11.892 26.913 26.913l20.463 133.123c0 14.713-12.201 26.913-26.914 26.913H83.944c-14.76 0-26.907-12.152-26.907-26.913L77.5 351.964c3.364-15.667 12.865-26.907 26.907-26.913z"/><path fill="#fff" d="M102.499 335.948h307c7.749 0 13.024 6.762 14.127 14.126l20.465 136.907c1.103 7.374-6.651 14.127-14.127 14.127H82.042c-7.476 0-15.276-6.437-14.127-14.127l20.458-136.907c1.149-7.689 6.398-14.126 14.126-14.126z"/><path fill="#333" fill-rule="nonzero" d="M172.75 400.366h-9.32V362.01h11.41l6.213 20.493 6.212-20.493h11.413v38.356h-9.261v-24.375l-4.779 16.069h-7.168l-4.72-15.95v24.256zm50.242 0l-1.196-5.735h-9.2l-1.254 5.735h-10.276l9.857-38.356h12.725l9.859 38.356h-10.515zm-8.784-13.143h5.976l-2.927-13.801-3.049 13.801zm22.287-25.213h17.623c5.854 0 8.783 2.47 8.783 7.41v23.538c0 4.939-2.929 7.408-8.783 7.408h-17.623V362.01zm15.95 30.169v-21.984c0-.875-.498-1.314-1.493-1.314h-4.003v24.613h4.003c.995 0 1.493-.436 1.493-1.315zm25.511.718h13.083v7.469h-23.538V362.01h23.002v7.468h-12.547v7.828h10.812v7.466h-10.812v8.125zm28.318-30.887h10.454v38.356h-10.454V362.01zm32.738 0h9.56v38.356h-8.962l-8.542-20.133v20.133h-9.559V362.01h8.961l8.542 20.493V362.01z"/><path fill="#DA251D" fill-rule="nonzero" d="M143.312 421.342h15.225l-13.217 53.71h-16.985l-13.217-53.71h15.227l6.442 35.89 6.525-35.89zm19.157 0h14.64v53.71h-14.64v-53.71zm35.973 43.254h18.323v10.456h-32.963v-53.71h32.209v10.457h-17.569v10.962h15.142v10.456h-15.142v11.379zm55.3-43.254v10.457h-10.374v43.253h-14.642v-43.253h-10.291v-10.457h35.307zm28.277 0h13.384v53.71h-12.547l-11.964-28.194v28.194h-13.386v-53.71h12.549l11.964 28.697v-28.697zm47.434 53.71l-1.673-8.032h-12.884l-1.758 8.032H298.75l13.802-53.71h17.821l13.803 53.71h-14.723zm-12.298-18.405h8.366l-4.1-19.326-4.266 19.326zm43.42 18.405h-13.052v-53.71h15.979l8.7 28.697 8.7-28.697h15.979v53.71h-12.966v-34.133l-6.693 22.503h-10.04l-6.607-22.335v33.965z"/></svg>
+  <div class="welcome-screen-backdrop" id="welcomeScreen">
+    <div class="welcome-screen-content">
+      <img src="https://noibo.kiengiang.dcs.vn/uploads/news/2023_08/anh-1.jpg" alt="Bác Hồ đọc Tuyên ngôn">
+      <h1>KHỞI NGUỒN HÒA BÌNH</h1>
+      <p>Ngày 2/9/1945, Chủ tịch Hồ Chí Minh đọc Tuyên ngôn Độc lập, khai sinh nền <b class="highlight">Hòa bình - Độc lập</b>.</p>
+      <p>Hôm nay, hãy dùng công nghệ để <b class="highlight-gold">viết tiếp câu chuyện đó</b>.</p>
+      <button class="btn btn-primary" id="startBtn" style="font-size: 18px; padding: 15px 40px;">
+        <span>Lắng nghe Lịch sử & Bắt đầu</span> 🎵
+      </button>
     </div>
-    <div>
-      <h1>Thông điệp Hòa Bình</h1>
-      <p class="lead">Tạo thiệp điện tử &amp; viết tiếp câu chuyện hòa bình</p>
-    </div>
-</div>
-  
-  <div class="header-controls">
-    <button class="btn ghost" id="toggleAudioBtn" style="min-width: 140px;">
-      🔊
-    </button>
-    <button class="btn" id="downloadBtn">Tải thiệp PNG <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg></button>
   </div>
-</header>
 
-<section class="hero-legacy-panel">
-  <h2>Những Người Viết Nên Hòa Bình</h2>
-  <p>Hòa bình hôm nay không phải là một điều hiển nhiên. Nó được viết nên từ sự hy sinh, lý tưởng và lòng dũng cảm của vô vàn anh hùng. Họ là khởi nguồn của câu chuyện hòa bình mà chúng ta có trách nhiệm viết tiếp.</p>
-  
-  <div class="hero-card-container">
-    <div class="hero-card">
-      <img src="https://i2-vnexpress.vnecdn.net/2024/07/26/IMG2346-1721967197-2368-1721968188.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=9NlMTc2rs4qBvvl2KyC-gg" alt="Huy hiệu Bà mẹ Việt Nam Anh hùng">
-      <h3>Mẹ Ngô Thị Lạng</h3>
-      <p class="quote">"Để con đi thì mất con, nhưng giữ con lại thì mất nước"</p>
-      <p style="margin-top: 10px;">Câu nói bất hủ đại diện cho sự hy sinh vĩ đại, đặt vận mệnh Tổ quốc lên trên nỗi đau của người Mẹ.</p>
-    </div>
-    
-    <div class="hero-card">
-      <img src="https://special.nhandan.vn/vonguyengiap/assets/URXYi0fd7G/111vo-nguyen-giap-1000x1473.jpeg" alt="Đại tướng Võ Nguyên Giáp">
-      <h3>Đại tướng Võ Nguyên Giáp</h3>
-      <p class="quote">Một trong 21 vị danh tướng của thế giới</p>
-     <p>Nghệ thuật quân sự của ông là: "lấy tinh thần chế ngự vật chất, lấy yếu chế ngự mạnh, lấy thô sơ chế ngự hiện đại".</p>
-    </div>
-    
-    <div class="hero-card">
-      <img src="https://img-bcdcnt-net.s3.hn-1.cloud.cmctelecom.vn/2e/e8/4b/2ee84b951a8c2623c442475c1164e570.jpg" alt="Anh hùng Nguyễn Văn Trỗi">
-      <h3>Anh hùng Nguyễn Văn Trỗi</h3>
-      <p>Từ chối bịt mắt trước khi bị xử bắn, anh đã hô lớn: "Hãy nhớ lấy lời tôi!... Hồ Chí Minh muôn năm! Việt Nam muôn năm!", thể hiện tinh thần dũng cảm đến hơi thở cuối cùng.</p>
-    </div>
-    
-    <div class="hero-card">
-      <img src="https://cdn2.tuoitre.vn/thumb_w/480/471584752817336320/2025/6/15/dang-thuy-tram-17499573430381658127884.jpg" alt="Bác sĩ Đặng Thùy Trâm">
-      <h3>Bác sĩ Đặng Thùy Trâm</h3>
-      <p>Tốt nghiệp Đại học Y khoa Hà Nội, chị xung phong vào phụ trách bệnh xá huyện Đức Phổ, Quảng Ngãi. Cuốn "Nhật ký Đặng Thùy Trâm" đã trở thành biểu tượng của lòng nhân ái và lý tưởng sống cao đẹp.</p>
-    </div>
-  </div>
-  
-  <p class="final-cta">Họ là nền móng vững chắc cho hòa bình. <strong>Nhưng câu chuyện vẫn chưa kết thúc...</strong></p>
-  
-</section>
-<section class="peacetime-heroes-panel">
-
-  <h2>...Và Câu Chuyện Đó Vẫn Đang Được Viết Tiếp</h2>
-  <p>Tinh thần hy sinh, cống hiến đó vẫn rực cháy trong thời bình. Đó là những "anh hùng" đời thường, viết tiếp trang sử hòa bình bằng lòng nhân ái và sự đoàn kết trước mọi gian khó.</p>
-  
-  <div class="hero-card-container">
-    <div class="hero-card">
-      <img src="https://vnvc.vn/wp-content/uploads/2024/10/giai-vang-em-ve-dung-si-tiem-ngua-34.jpg" alt="Chiến sĩ áo trắng chống dịch COVID-19">
-      <h3>Chiến Sĩ Áo Trắng</h3>
-      <p>Hình ảnh các y bác sĩ gồng mình chiến đấu, hy sinh sức khỏe và tính mạng trong đại dịch COVID-19.</p>
-    </div>
-    
-    <div class="hero-card">
-       <img src="https://imgnvsk.vnanet.vn/MediaUpload/Content/2024/09/12/vna-potal-thu-tuong-chi-dao-tim-kiem-nguoi-mat-tich-tai-lang-nu-lao-cai-759152112-19-29-54.jpeg" alt="Chiến sĩ và tình nguyện viên cứu trợ bão lụt">
-      <h3>Những Người Hùng Thầm Lặng</h3>
-      <p>Các chiến sĩ và tình nguyện viên dầm mình trong mưa bão (như Bão Yagi) để cứu trợ, giúp đỡ đồng bào.</p>
-    </div>
-    
-    <div class="hero-card">
-      <img src="https://media.quangninh.gov.vn/618ca5c4-79b3-478a-8adb-4184369067f7/Libraries/HinhAnhBaiViet/A%20BAT/NAM%202019/55555555555555.jpg" alt="Tinh thần đoàn kết dân tộc, ATM Gạo">
-      <h3>Tinh Thần Dân Tộc</h3>
-      <p>Sự đùm bọc, sẻ chia "không để ai bị bỏ lại" qua các "ATM Gạo" hay sự đoàn kết trong các Đại lễ 30/4, 2/9.</p>
-    </div>
-  </div>
-  
-  <p class="final-cta">Giờ là lúc thế hệ của bạn <strong>cầm lấy ngọn đuốc</strong> và viết tiếp câu chuyện này.</p>
-  
-</section>
-<section class="pledge-panel">
-  <h2>Tuyên Ngôn Tuổi Trẻ: Viết Tiếp Hòa Bình</h2>
-  <p>Hòa bình không chỉ là di sản của quá khứ, mà là trách nhiệm của thế hệ hiện tại. Thế hệ trẻ chúng ta cam kết dùng <b>trí tuệ và công nghệ</b> để tiếp tục sứ mệnh này.</p>
-  <div class="pledge-box">
-    <p class="pledge-quote">
-      "Tôi cam kết dùng công nghệ như một cây bút thần kỳ, để <b>chuyển hóa xung đột thành đối thoại</b>, <b>lan tỏa tri thức thay vì thù hận</b>, và bảo vệ một <b>không gian số an toàn, nhân văn</b>."
-    </p>
-    <button class="btn" onclick="document.querySelector('#toInput').focus();" style="font-size: 1.1em; padding: 12px 25px; margin-top: 15px;">
-      [ Viết Lời Cam Kết Của Bạn Ngay ]
-    </button>
-  </div>
-</section>
-<main>
-  <section class="panel">
-    <label>1. Chọn chủ đề sáng tạo</label>
-    <select id="themeSelect" style="margin-bottom: 20px;">
-      <option value="peace">Hòa bình trái tim — Tha thứ &amp; Yêu thương</option>
-      <option value="digital">Hòa bình số — Lan tỏa điều tích cực</option>
-      <option value="environment">Hòa bình với thiên nhiên — Gìn giữ Đất Mẹ</option>
-    </select>
-
-    <label>2. Chọn mẫu thiệp yêu thích</label>
-    <div class="templates">
-      <div class="template selected" data-template="classic">
-        <span class="template-icon">🌸</span> Cổ điển
+  <header>
+    <div class="brand">
+      <div class="logo">
+        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="50" r="48" stroke="#DA251D" stroke-width="4"/>
+            <path d="M50 20C30 20 15 35 15 55C15 75 30 90 50 90C70 90 85 75 85 55" stroke="#DA251D" stroke-width="4" stroke-linecap="round"/>
+            <path d="M50 20V50L75 75" stroke="#FFC72C" stroke-width="6" stroke-linecap="round"/>
+            <circle cx="50" cy="50" r="8" fill="#DA251D"/>
+        </svg>
       </div>
-      <div class="template" data-template="minimal">
-        <span class="template-icon">✨</span> Tối giản
-      </div>
-      <div class="template" data-template="art">
-        <span class="template-icon">🎨</span> Nghệ thuật
-      </div>
-      <div class="template" data-template="dream">
-        <span class="template-icon">🌈</span> Giấc mơ
+      <div>
+        <h1>TIẾP BƯỚC HÒA BÌNH</h1>
+        <p class="lead">Công nghệ kiến tạo tương lai</p>
       </div>
     </div>
+    <div class="header-controls">
+      <button class="btn" id="toggleAudioBtn">🔊 Dừng đọc</button>
+    </div>
+  </header>
 
-    <label style="margin-top:15px">3. Gửi tới</label>
-    <input type="text" id="toInput" placeholder="Tên người nhận (ví dụ: Bạn thân của tôi)...">
-
-    <label style="margin-top:15px">4. Viết thông điệp của bạn (tối đa 300 ký tự)</label>
-    <textarea id="msgInput" maxlength="300" placeholder="Mẹ Lạng đã chọn 'mất con' để tổ quốc 'không mất nước'. Câu chuyện hòa bình của bạn là gì?"></textarea>
-    <p id="charCount" style="font-size:13px;color:var(--text-muted); text-align: right; margin-top: 5px;">0/300</p>
-
-    <label style="margin-top:15px">5. Ký tên của bạn</label>
-    <input type="text" id="signInput" placeholder="Tên của bạn (ví dụ: Một người bạn)">
-
-    <button class="btn" id="previewBtn" style="margin-top:20px; width: 100%;">
-Xem trước & Cập nhật thiệp <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-    </button>
-
-    <button class="btn ghost" id="galleryBtn" style="margin-top:10px; width: 100%;">
-      Gửi thông điệp lên Bảng chung 🕊️
-    </button>
+  <section class="hero-legacy-panel">
+    <h2>NHỮNG NGƯỜI VIẾT NÊN HÒA BÌNH</h2>
+    <p>Hòa bình hôm nay được đổi bằng sự hy sinh, trí tuệ và lòng dũng cảm của lớp lớp cha anh. Họ là nền móng vững chắc mà chúng ta phải trân trọng.</p>
+    
+    <div class="hero-card-container">
+      <div class="hero-card">
+        <img src="https://i2-vnexpress.vnecdn.net/2024/07/26/IMG2346-1721967197-2368-1721968188.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=9NlMTc2rs4qBvvl2KyC-gg" alt="Mẹ Ngô Thị Lạng">
+        <h3>Mẹ Ngô Thị Lạng</h3>
+        <p class="quote">"Để con đi thì mất con, nhưng giữ con lại thì mất nước"</p>
+        <p>Sự hy sinh vĩ đại của người Mẹ Việt Nam Anh hùng, đặt Tổ quốc lên trên nỗi đau riêng.</p>
+      </div>
+      <div class="hero-card">
+        <img src="https://special.nhandan.vn/vonguyengiap/assets/URXYi0fd7G/111vo-nguyen-giap-1000x1473.jpeg" alt="Đại tướng Võ Nguyên Giáp">
+        <h3>Đại tướng Võ Nguyên Giáp</h3>
+        <p class="quote">"Lấy tinh thần chế ngự vật chất, lấy yếu chế ngự mạnh"</p>
+        <p>Vị danh tướng huyền thoại với nghệ thuật quân sự độc đáo, góp phần làm nên lịch sử.</p>
+      </div>
+      <div class="hero-card">
+        <img src="https://img-bcdcnt-net.s3.hn-1.cloud.cmctelecom.vn/2e/e8/4b/2ee84b951a8c2623c442475c1164e570.jpg" alt="Anh hùng Nguyễn Văn Trỗi">
+        <h3>Anh hùng Nguyễn Văn Trỗi</h3>
+        <p class="quote">"Hãy nhớ lấy lời tôi! Việt Nam muôn năm!"</p>
+        <p>Biểu tượng của tinh thần bất khuất, hiên ngang trước kẻ thù đến hơi thở cuối cùng.</p>
+      </div>
+      <div class="hero-card">
+        <img src="https://cdn2.tuoitre.vn/thumb_w/480/471584752817336320/2025/6/15/dang-thuy-tram-17499573430381658127884.jpg" alt="Bác sĩ Đặng Thùy Trâm">
+        <h3>Bác sĩ Đặng Thùy Trâm</h3>
+        <p class="quote">"Nhật ký Đặng Thùy Trâm"</p>
+        <p>Ngọn lửa của lý tưởng sống cao đẹp và lòng nhân ái bao la ngay giữa chiến trường khốc liệt.</p>
+      </div>
+    </div>
+    <div class="final-cta">Câu chuyện vĩ đại ấy vẫn chưa kết thúc...</div>
   </section>
 
-  <aside class="panel" style="display:flex;flex-direction:column;align-items:center; justify-content: flex-start; padding-top: 30px;">
-    <strong style="font-size: 1.1em; color: var(--accent-dark); margin-bottom: 20px;">Xem trước thiệp của bạn</strong>
-    <div class="card" id="card">
-      <div class="decor" id="decor"></div>
-      <div class="art">
-        <h2 id="toText">Gửi: Người bạn</h2>
-        <p id="msgText">Hòa bình bắt đầu từ một nụ cười, một hành động nhỏ bé mang lại yêu thương và sự thấu hiểu.</p>
-        <p id="signText">— Người gửi</p>
+  <section class="peacetime-heroes-panel">
+    <h2>...VÀ ĐANG ĐƯỢC VIẾT TIẾP HÔM NAY</h2>
+    <p>Tinh thần ấy vẫn rực cháy trong thời bình qua những "anh hùng" đời thường, viết tiếp trang sử bằng lòng nhân ái và sự đoàn kết.</p>
+    
+    <div class="hero-card-container">
+      <div class="hero-card">
+        <img src="https://vnvc.vn/wp-content/uploads/2024/10/giai-vang-em-ve-dung-si-tiem-ngua-34.jpg" alt="Chiến sĩ áo trắng">
+        <h3>Chiến Sĩ Áo Trắng</h3>
+        <p>Những lá chắn thép nơi tuyến đầu, hy sinh quên mình để bảo vệ sự sống trong đại dịch.</p>
       </div>
-      <div class="footer">Viết tiếp câu chuyện Hòa Bình ✌️</div>
+      <div class="hero-card">
+        <img src="https://imgnvsk.vnanet.vn/MediaUpload/Content/2024/09/12/vna-potal-thu-tuong-chi-dao-tim-kiem-nguoi-mat-tich-tai-lang-nu-lao-cai-759152112-19-29-54.jpeg" alt="Cứu trợ bão lũ">
+        <h3>Những Người Hùng Thầm Lặng</h3>
+        <p>Bất chấp hiểm nguy lao mình vào bão lũ (như Bão Yagi) để cứu giúp đồng bào ruột thịt.</p>
+      </div>
+      <div class="hero-card">
+        <img src="https://media.quangninh.gov.vn/618ca5c4-79b3-478a-8adb-4184369067f7/Libraries/HinhAnhBaiViet/A%20BAT/NAM%202019/55555555555555.jpg" alt="Tinh thần dân tộc">
+        <h3>Nghĩa Đồng Bào</h3>
+        <p>Sự sẻ chia "lá lành đùm lá rách" qua những cây "ATM Gạo" và tinh thần đoàn kết dân tộc.</p>
+      </div>
     </div>
-  </aside>
-</main>
+    <div class="final-cta" style="background: rgba(255, 199, 44, 0.1); color: #d84315;">Giờ là lúc bạn <span class="highlight-gold">cầm lấy ngọn đuốc</span> và hành động!</div>
+  </section>
 
-<section class="gallery-wrapper">
-  <h2>Góc lan tỏa 💌</h2>
-  <p>Những thông điệp hòa bình đã được gửi đi từ cộng đồng.</p>
-  <div class="gallery-container" id="galleryContainer">
+  <section class="pledge-panel">
+    <h2>TUYÊN NGÔN TUỔI TRẺ: KIẾN TẠO TƯƠNG LAI</h2>
+    <p>Hòa bình là trách nhiệm của chúng ta. Thế hệ trẻ cam kết dùng <b class="highlight">trí tuệ & công nghệ</b> cho sứ mệnh cao cả này.</p>
+    <div class="pledge-box">
+      <p class="pledge-quote">
+        "Tôi cam kết dùng công nghệ như một cây bút thần kỳ để <b>chuyển hóa xung đột thành đối thoại</b>, <b>lan tỏa tri thức thay vì định kiến</b>, và xây dựng một <b>không gian số nhân văn, an toàn</b>."
+      </p>
+      <div class="text-center" style="margin-top: 30px;">
+          <button class="btn btn-gold" onclick="document.getElementById('creationTool').scrollIntoView({behavior: 'smooth'});">
+              <span>✍️ Ký Cam Kết & Tạo Thiệp Ngay</span>
+          </button>
+      </div>
     </div>
-</section>
+  </section>
 
-<footer>
-  <p style="font-size: 15px; font-style: italic; color: var(--text-muted); margin-top: 0; margin-bottom: 15px;">Tưởng nhớ sự hy sinh của các Anh hùng Liệt sĩ & Trân trọng những đóng góp thầm lặng trong thời bình.</p>
-  &copy; 2025 Dự án "Viết tiếp câu chuyện Hòa bình" — Gửi đi thông điệp yêu thương.
-</footer>
+  <main id="creationTool">
+    <section class="panel creation-tool">
+      <h2 style="text-align: left; font-size: 1.8rem; margin-bottom: 30px;">TẠO THÔNG ĐIỆP HÒA BÌNH 💌</h2>
+      
+      <div class="form-group">
+        <label>1. Chọn chủ đề cảm hứng:</label>
+        <select id="themeSelect">
+          <option value="peace">🕊️ Hòa bình & Yêu thương (Xanh)</option>
+          <option value="love">❤️ Lòng biết ơn & Hy sinh (Đỏ)</option>
+          <option value="future">🌱 Tương lai & Hy vọng (Xanh lá)</option>
+        </select>
+      </div>
 
-<audio id="declarationAudio" src="./TuyenNgonDocLap2.9.1945-HoChiMinh.mp3"></audio>
-<audio id="bgMusic" loop src="./Pachelbel_Canon_in_D.ogg"></audio>
+      <div class="form-group">
+        <label>2. Chọn mẫu thiệp:</label>
+        <div class="templates-grid">
+          <div class="template-option selected" data-template="classic">
+            <span class="template-icon">📜</span> Cổ điển
+          </div>
+          <div class="template-option" data-template="modern">
+            <span class="template-icon">✨</span> Hiện đại
+          </div>
+          <div class="template-option" data-template="artistic">
+            <span class="template-icon">🎨</span> Nghệ thuật
+          </div>
+        </div>
+      </div>
 
-<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+      <div class="form-group">
+        <label>3. Gửi tới ai?</label>
+        <input type="text" id="toInput" placeholder="Ví dụ: Thế hệ tương lai, Người bạn thân...">
+      </div>
+
+      <div class="form-group">
+        <label>4. Thông điệp của bạn (Viết tiếp câu chuyện...):</label>
+        <textarea id="msgInput" maxlength="250" placeholder="Chia sẻ suy nghĩ, lời hứa hoặc lòng biết ơn của bạn về hòa bình..."></textarea>
+        <p class="char-count" id="charCount">0/250</p>
+      </div>
+
+      <div class="form-group">
+        <label>5. Ký tên:</label>
+        <input type="text" id="signInput" placeholder="Tên của bạn...">
+      </div>
+
+      <div style="display: flex; gap: 15px; margin-top: 30px;">
+        <button class="btn btn-secondary" id="previewBtn" style="flex: 1;">👁️ Xem trước</button>
+        <button class="btn btn-primary" id="shareBtn" style="flex: 2;">🚀 Gửi lên Bảng vàng</button>
+      </div>
+      <button class="btn btn-gold" id="downloadBtn" style="width: 100%; margin-top: 15px;">📥 Tải thiệp về máy</button>
+
+    </section>
+
+    <aside class="card-preview-container">
+      <p class="card-preview-label">--- BẢN XEM TRƯỚC ---</p>
+      <div class="card" id="cardPreview" data-theme="peace">
+        <div class="card-decor" id="cardDecor">
+            </div>
+        <div class="card-content">
+          <h2 id="cardTo">Gửi: Mọi người</h2>
+          <p class="message" id="cardMsg">Hãy cùng nhau lan tỏa yêu thương và xây dựng một thế giới hòa bình, bắt đầu từ những hành động nhỏ bé nhất.</p>
+          <p class="sign" id="cardSign">— Một người bạn</p>
+        </div>
+        <div class="card-footer">
+          VIẾT TIẾP CÂU CHUYỆN HÒA BÌNH VIỆT NAM 🇻🇳
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <section class="gallery-section">
+    <h2>BẢNG VÀNG HÒA BÌNH 🌟</h2>
+    <p>Nơi lưu giữ và lan tỏa những cam kết, thông điệp ý nghĩa từ cộng đồng.</p>
+    <div class="gallery-grid" id="galleryGrid">
+      </div>
+  </section>
+
+  <footer>
+    <p>Đời đời nhớ ơn các Anh hùng Liệt sĩ & Tri ân những cống hiến thầm lặng vì hòa bình.</p>
+    <p>© 2025 Dự án <b>"Viết tiếp câu chuyện Hòa bình"</b>. Tự hào Việt Nam 🇻🇳</p>
+  </footer>
+
+  <audio id="declarationAudio" src="./TuyenNgonDocLap2.9.1945-HoChiMinh.mp3"></audio>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
