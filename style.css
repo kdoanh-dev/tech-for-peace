@@ -1,691 +1,374 @@
+/* --- RESET & VARIABLES --- */
 :root {
-    --bg: #fdfefe; /* Nền rất sáng, gần trắng */
-    --card-bg: #ffffff;
-    --accent: #DA251D; /* Đỏ cờ (Red) */
-    --accent-dark: #FFC72C; /* Vàng cờ (Gold/Yellow) */
-    --text-main: #263238; /* Dark blue-grey */
-    --text-muted: #546e7a; /* Muted blue-grey */
-    --highlight: #ffd700; /* Gold for highlight */
-    --gradient-header: linear-gradient(90deg, #DA251D, #c52119); /* Gradient Đỏ */
-    --gradient-body: linear-gradient(180deg, var(--bg), #f0f0f0); /* Soft gradient cho body */
-    --shadow-light: rgba(0, 0, 0, 0.08);
-    --shadow-medium: rgba(0, 0, 0, 0.15);
-    --border-color: #e0e0e0;
+  --bg-main: #f9f9f9;
+  --text-primary: #333;
+  --text-secondary: #666;
+  --accent-red: #da251d; /* Đỏ cờ */
+  --accent-gold: #ffc72c; /* Vàng sao */
+  --gradient-hero: linear-gradient(135deg, #c62828, #e53935, #ffc107, #ff9800);
+  --gradient-panel: linear-gradient(180deg, #ffffff, #f5f5f5);
+  --shadow-soft: 0 5px 20px rgba(0,0,0,0.08);
+  --shadow-medium: 0 10px 30px rgba(0,0,0,0.15);
+  --border-light: #eee;
 }
 
-* {
-    box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
-    font-family: 'Poppins', system-ui, sans-serif;
-    margin: 0;
-    background: var(--gradient-body);
-    color: var(--text-main);
-    line-height: 1.6;
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  background: var(--bg-main);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
 }
 
-/* --- CSS CHO MÀN HÌNH CHÀO MỪNG --- */
+/* --- UTILITIES --- */
+.highlight { color: var(--accent-red); font-weight: 700; }
+.highlight-gold { color: var(--accent-gold); font-weight: 700; }
+.text-center { text-align: center; }
+.hidden { display: none !important; }
+.content-hidden > :not(.welcome-screen-backdrop) { opacity: 0; visibility: hidden; transition: opacity 1s ease 0.5s; }
+.content-visible > :not(.welcome-screen-backdrop) { opacity: 1; visibility: visible; }
+
+/* --- WELCOME SCREEN --- */
 .welcome-screen-backdrop {
-    position: fixed;
-    inset: 0;
-    background: linear-gradient(180deg, #e0f7fa, #bbdefb);
-    z-index: 2000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    text-align: center;
-    transition: opacity 1.5s ease;
-}
-.welcome-screen-backdrop.hidden {
-    opacity: 0;
-    pointer-events: none; /* Cho phép click xuyên qua khi đã mờ đi */
+  position: fixed; inset: 0;
+  background: linear-gradient(135deg, #ffebee, #fffde7, #e1f5fe);
+  z-index: 2000;
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+  transition: opacity 1.5s ease, visibility 1.5s ease;
 }
 .welcome-screen-content {
-    max-width: 600px;
-    background: white;
-    padding: 30px 40px;
-    border-radius: 20px;
-    box-shadow: 0 10px 50px rgba(0,0,0,0.2);
+  max-width: 600px; width: 100%;
+  background: white; padding: 40px;
+  border-radius: 20px;
+  box-shadow: var(--shadow-medium);
+  text-align: center;
+  border-top: 5px solid var(--accent-gold);
+  border-bottom: 5px solid var(--accent-red);
+  position: relative; overflow: hidden;
+}
+/* Hiệu ứng nền cờ đỏ sao vàng mờ */
+.welcome-screen-content::before {
+    content: ''; position: absolute; inset: 0; opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%23DA251D' d='M0 0h100v100H0z'/%3E%3Cpath fill='%23FFC72C' d='M50 20l10 30 30 10-25 15 10 25-25-20-25 20 10-25-25-15 30-10z'/%3E%3C/svg%3E");
+    background-size: cover; z-index: -1;
 }
 .welcome-screen-content img {
-    width: 100%;
-    max-width: 400px; /* Giới hạn chiều rộng ảnh */
-    border-radius: 12px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  width: 100%; max-width: 400px; border-radius: 12px;
+  margin-bottom: 25px; box-shadow: var(--shadow-soft);
 }
 .welcome-screen-content h1 {
-    font-size: 28px;
-    color: var(--accent-dark);
-    font-weight: 700;
-    margin-top: 0;
-    margin-bottom: 10px;
+  font-size: 28px; color: var(--accent-red); margin-bottom: 15px;
 }
-.welcome-screen-content p {
-    font-size: 16px;
-    color: var(--text-muted);
-    margin-bottom: 25px;
+.welcome-screen-content p { font-size: 16px; color: var(--text-secondary); }
+.welcome-screen-content .btn {
+  background: linear-gradient(90deg, var(--accent-red), #e53935);
+  color: white; border: none;
+  box-shadow: 0 4px 15px rgba(218, 37, 29, 0.3);
 }
-/* Ẩn nội dung chính ban đầu */
-body.content-hidden > :not(.welcome-screen-backdrop) {
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 1s ease 0.5s; /* Hiện ra sau khi màn hình chào mờ đi */
+.welcome-screen-content .btn:hover {
+  transform: translateY(-2px); box-shadow: 0 6px 20px rgba(218, 37, 29, 0.4);
 }
-body.content-visible > :not(.welcome-screen-backdrop) {
-    opacity: 1;
-    visibility: visible;
-}
-/* --- HẾT CSS MÀN HÌNH CHÀO MỪNG --- */
 
+/* --- HEADER --- */
 header {
-    padding: 20px 40px;
-    display: flex;
-    gap: 16px;
-    align-items: center;
-    justify-content: space-between;
-    background: var(--gradient-header);
-    color: white;
-    box-shadow: 0 6px 20px var(--shadow-light);
-    position: sticky;
-    top: 0;
-    z-index: 100;
+  background: var(--gradient-hero);
+  padding: 20px 40px;
+  display: flex; justify-content: space-between; align-items: center;
+  color: white;
+  box-shadow: 0 2px 15px rgba(0,0,0,0.2);
+  position: sticky; top: 0; z-index: 100;
 }
-
-.header-controls {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-}
-
-.brand {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-}
-
+.brand { display: flex; align-items: center; gap: 15px; }
 .logo {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.9);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease;
+  width: 50px; height: 50px; background: white;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  padding: 8px; /* Thêm padding cho logo */
 }
+.logo svg { width: 100%; height: 100%; } /* Logo tự fill */
+.brand h1 { margin: 0; font-size: 24px; font-weight: 700; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); }
+.brand p.lead { margin: 0; font-size: 14px; opacity: 0.9; }
+.header-controls .btn {
+  background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.4); color: white;
+  backdrop-filter: blur(5px);
+}
+.header-controls .btn:hover { background: rgba(255,255,255,0.25); }
 
-.logo:hover {
-    transform: scale(1.05);
-}
-
-.logo svg {
-    width: 40px;
-    height: 40px;
-    fill: var(--accent-dark);
-    stroke: var(--accent-dark);
-    stroke-width: 2px;
-}
-
-h1 {
-    font-size: 24px;
-    margin: 0;
-    color: white;
-    font-weight: 700;
-}
-
-p.lead {
-    margin: 0;
-    color: #e0f7fa;
-    font-size: 14px;
-    font-weight: 300;
-}
-
-main {
-    display: grid;
-    grid-template-columns: 1fr 420px;
-    margin: 20px;
-    gap: 20px;
-    max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-@media (max-width: 980px) {
-    main {
-    grid-template-columns: 1fr;
-    padding: 0 16px;
-    }
-    header {
-    padding: 15px 20px;
-    }
-    .welcome-screen-content {
-    padding: 20px;
-    }
-    .welcome-screen-content h1 {
-    font-size: 24px;
-    }
-    .welcome-screen-content p {
-    font-size: 15px;
-    }
-}
-
-.panel {
-    background: var(--card-bg);
-    padding: 25px;
-    border-radius: 18px;
-    box-shadow: 0 10px 40px var(--shadow-medium);
-    border: 1px solid #f0f0f0;
-}
-
-label {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 8px;
-    font-size: 15px;
-    color: var(--text-main);
-}
-input[type=text],
-textarea,
-select {
-    width: 100%;
-    padding: 12px;
-    border-radius: 10px;
-    border: 1px solid var(--border-color);
-    background: #fdfdfd;
-    font-size: 15px;
-    color: var(--text-main);
-    transition: all 0.3s ease;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
-}
-
-input[type=text]:focus,
-textarea:focus,
-select:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(0, 188, 212, 0.2);
-    outline: none;
-}
-
-textarea {
-    min-height: 120px;
-    resize: vertical;
-}
-
-.templates {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    gap: 12px;
-    margin-bottom: 20px;
-}
-
-.template {
-    padding: 15px;
-    border-radius: 14px;
-    border: 2px solid transparent;
-    background: linear-gradient(145deg, #f0f4f8, #e8edf2);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--text-muted);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-
-.template:hover {
-    transform: translateY(-5px);
-    background: linear-gradient(145deg, #e0f7fa, #b2ebf2);
-    border-color: #80deea;
-    box-shadow: 0 6px 15px rgba(0, 188, 212, 0.15);
-}
-
-.template.selected {
-    border-color: var(--accent);
-    background: linear-gradient(145deg, #e0f7fa, #b2ebf2);
-    color: var(--accent-dark);
-    box-shadow: 0 4px 12px rgba(0, 188, 212, 0.25);
-    transform: translateY(-2px);
-}
-
-.template-icon {
-    font-size: 28px;
-    margin-bottom: 8px;
-    line-height: 1;
-}
-
+/* --- BUTTONS --- */
 .btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 12px 20px;
-    border-radius: 10px;
-    border: 0;
-    background: var(--accent);
-    color: white;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0, 188, 212, 0.2);
-    font-size: 15px;
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 12px 24px; border-radius: 30px;
+  font-weight: 600; font-size: 15px; cursor: pointer;
+  transition: all 0.3s ease;
 }
-
-.btn:hover {
-    background: var(--accent-dark);
-    transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(0, 188, 212, 0.3);
+.btn-primary {
+  background: var(--accent-red); color: white; border: none;
+  box-shadow: 0 4px 15px rgba(218, 37, 29, 0.2);
 }
-
-.btn:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 10px rgba(0, 188, 212, 0.2);
+.btn-primary:hover { background: #c62828; transform: translateY(-2px); }
+.btn-secondary {
+  background: white; color: var(--accent-red); border: 2px solid var(--accent-red);
 }
-
-.btn.ghost {
-    background: transparent;
-    border: 1px solid var(--accent);
-    color: var(--accent);
-    box-shadow: none;
+.btn-secondary:hover { background: #fce4ec; }
+.btn-gold {
+    background: linear-gradient(to right, #FFC72C, #FFD700); color: #333; border: none;
+    box-shadow: 0 4px 15px rgba(255, 199, 44, 0.3);
 }
-
-.btn.ghost:hover {
-    background: rgba(0, 188, 212, 0.1);
-    transform: translateY(-3px);
-    box-shadow: 0 6px 15px rgba(0, 188, 212, 0.1);
-}
-
-#musicBtn {
-    padding: 10px;
-    border-radius: 50%;
-    width: 44px;
-    height: 44px;
-    font-size: 20px;
-    line-height: 1;
-    border-color: white;
-    color: white;
-}
-#musicBtn:hover {
-    background: rgba(255,255,255,0.2);
-    color: white;
-}
-
-.card {
-    width: 360px;
-    height: 520px;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 20px 50px var(--shadow-medium);
-    position: relative;
-    display: flex;
-    flex-direction: column;
-justify-content: space-between;
-    background: var(--card-bg);
-    transition: all 0.5s ease;
-    transform: scale(0.95); /* Slightly smaller for aesthetic */
-    margin-top: 20px;
-}
-
-.card .art {
-    flex: 1;
-    padding: 25px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    z-index: 1;
-}
-
-.card h2 {
-    margin: 0 0 10px;
-    font-size: 24px;
-    color: var(--text-main);
-    font-weight: 700;
-    line-height: 1.2;
-}
-
-.card p {
-    margin-top: 15px;
-    color: var(--text-muted);
-    padding: 0 15px;
-    font-size: 15px;
-}
-
-.card p#signText {
-    margin-top: 25px;
-    font-style: italic;
-    color: var(--accent-dark);
-    font-weight: 600;
-}
-
-.footer {
-    padding: 15px;
-    background: #e0f2f7;
-    color: var(--accent-dark);
-    font-size: 13px;
-    text-align: center;
-    font-weight: 600;
-    border-top: 1px solid #e0f7fa;
-}
-
-.decor {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-    border-radius: 20px;
-    z-index: 0;
-    opacity: 0.7;
-    transition: opacity 0.5s ease;
-}
-
-.decor svg {
-    position: absolute;
-    opacity: 0.3;
-    fill: none;
-    stroke-width: 1;
-}
-
-/* --- CSS CHO ANIMATION --- */
-@keyframes dove-fly {
-    0% { transform: translate(0, 0) rotate(-5deg); opacity: 0.4; }
-    50% { transform: translate(15px, -10px) rotate(5deg); opacity: 0.5; }
-    100% { transform: translate(0, 0) rotate(-5deg); opacity: 0.4; }
-}
-@keyframes wave-spread {
-    0% { opacity: 0.3; transform: scale(1); }
-    50% { opacity: 0.1; transform: scale(1.05); }
-    100% { opacity: 0.3; transform: scale(1); }
-}
-@keyframes leaf-sway {
-    0% { transform: scale(0.9) rotate(15deg); }
-    50% { transform: scale(0.9) rotate(25deg); }
-    100% { transform: scale(0.9) rotate(15deg); }
-}
-
-/* Áp dụng animation */
-.decor.peace-decor svg.dove {
-    animation: dove-fly 8s ease-in-out infinite;
-}
-.decor.peace-decor svg.circle-wave {
-    animation: wave-spread 4s linear infinite;
-}
-.decor.environment-decor svg.leaf {
-    animation: leaf-sway 5s ease-in-out infinite;
-}
-/* --- HẾT CSS ANIMATION --- */
+.btn-gold:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255, 199, 44, 0.4); }
 
 
-/* Specific Decor Styles */
-.decor.peace-decor svg.circle-wave {
-    stroke: #80deea; /* Light Blue */
-    stroke-width: 3px;
-}
-.decor.peace-decor svg.dove {
-    fill: #b2ebf2; /* Pale Blue */
-    top: 10%; left: 5%; transform: scale(0.8);
-}
-.decor.peace-decor svg.flower {
-    fill: #e0f7fa; /* Lightest Blue */
-    bottom: 0%; right: 0%; transform: scale(0.7);
-    opacity: 0.5;
+/* --- SECTIONS --- */
+section {
+  max-width: 1200px; margin: 40px auto; padding: 40px 30px;
+  background: var(--gradient-panel);
+  border-radius: 20px;
+  box-shadow: var(--shadow-medium);
+  border: 1px solid var(--border-light);
+  position: relative;
+  overflow: hidden; /* Cho các hiệu ứng nền */
 }
 
-.decor.digital-decor svg.grid-pattern {
-    stroke: #90caf9; /* Light blue */
-    opacity: 0.2;
+/* Tiêu đề section với hiệu ứng gạch chân */
+section h2 {
+  text-align: center; font-size: 2.2rem; color: var(--accent-red);
+  margin-bottom: 20px; position: relative; padding-bottom: 15px;
 }
-.decor.digital-decor svg.code-bracket {
-    fill: #e3f2fd; /* Extra light blue */
-    top: 5%; right: 5%; transform: scale(0.6);
-    opacity: 0.3;
+section h2::after {
+  content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 80px; height: 4px; background: linear-gradient(to right, var(--accent-red), var(--accent-gold));
+  border-radius: 2px;
 }
-.decor.digital-decor svg.wifi-signal {
-    stroke: #64b5f6; /* Medium blue */
-    stroke-width: 2px;
-    bottom: 10%; left: 10%; transform: scale(0.7);
-    opacity: 0.4;
-}
-
-.decor.environment-decor svg.leaf {
-    fill: #c8e6c9; /* Light Green */
-    top: 5%; left: 5%; transform: scale(0.9) rotate(20deg);
-}
-.decor.environment-decor svg.sun {
-    fill: #ffecb3; /* Light Yellow */
-    top: 10%; right: 10%; transform: scale(0.8);
-    opacity: 0.5;
-}
-.decor.environment-decor svg.water-drop {
-    fill: #bbdefb; /* Light Blue */
-    bottom: 5%; left: 15%; transform: scale(0.6);
-    opacity: 0.4;
+section > p {
+  text-align: center; max-width: 800px; margin: 0 auto 40px;
+  font-size: 1.1rem; color: var(--text-secondary);
 }
 
-
-footer {
-    text-align: center;
-    padding: 25px;
-    color: var(--text-muted);
-    font-size: 14px;
-    margin-top: 40px;
-    border-top: 1px solid #eee;
+/* Hiệu ứng nền cho các section cụ thể */
+.hero-legacy-panel::before {
+    content: ''; position: absolute; top: -50px; left: -50px; width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(218,37,29,0.05) 0%, transparent 70%);
+    border-radius: 50%; z-index: 0; pointer-events: none;
+}
+.peacetime-heroes-panel::before {
+    content: ''; position: absolute; bottom: -50px; right: -50px; width: 250px; height: 250px;
+    background: radial-gradient(circle, rgba(255,199,44,0.08) 0%, transparent 70%);
+    border-radius: 50%; z-index: 0; pointer-events: none;
 }
 
-/* --- CSS CHO GÓC LAN TỎA --- */
-.gallery-wrapper {
-    max-width: 1200px;
-    margin: 40px auto 20px auto;
-    padding: 0 20px;
-    text-align: center;
-}
-.gallery-wrapper h2 {
-    font-size: 28px;
-    color: var(--accent-dark);
-    font-weight: 700;
-    margin-bottom: 5px;
-}
-.gallery-wrapper p {
-    font-size: 16px;
-    color: var(--text-muted);
-    margin-bottom: 30px;
-}
-
-.gallery-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-    justify-content: center;
-}
-
-.gallery-card {
-    background: var(--card-bg);
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 6px 20px var(--shadow-light);
-    border: 1px solid var(--border-color);
-    text-align: left;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.gallery-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px var(--shadow-medium);
-}
-
-.gallery-card .msg {
-    font-size: 15px;
-    color: var(--text-main);
-    font-style: italic;
-    min-height: 60px; /* Giữ chiều cao ổn định */
-}
-.gallery-card .to {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--accent-dark);
-    margin-bottom: 8px;
-    border-bottom: 1px dashed var(--border-color);
-    padding-bottom: 8px;
-}
-.gallery-card .sign {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--text-muted);
-    margin-top: 15px;
-    text-align: right;
-}
-
-/* Thêm màu sắc cho từng chủ đề */
-.gallery-card.peace-theme { border-left: 5px solid #80deea; }
-.gallery-card.digital-theme { border-left: 5px solid #90caf9; }
-.gallery-card.environment-theme { border-left: 5px solid #a5d6a7; }
-
-
-/* --- CSS CHO BẢNG TÔN VINH ANH HÙNG (CHUNG) --- */
-.hero-legacy-panel, .peacetime-heroes-panel {
-    max-width: 1200px;
-    margin: 20px auto;
-    padding: 30px;
-    background: #ffffff; /* Nền trắng trang trọng */
-    border-radius: 18px;
-    box-shadow: 0 10px 40px var(--shadow-medium);
-    text-align: center;
-}
-
-/* Bảng thứ 2 có nền hơi khác để phân biệt */
-.peacetime-heroes-panel {
-    background: #f8fcfd;
-    margin-top: -10px; /* Gần hơn chút */
-}
-
-.hero-legacy-panel h2, .peacetime-heroes-panel h2 {
-    font-size: 28px;
-    color: var(--accent-dark);
-    margin-top: 0;
-    margin-bottom: 10px;
-}
-
-.hero-legacy-panel > p, .peacetime-heroes-panel > p {
-    font-size: 16px;
-    color: var(--text-main);
-    margin-bottom: 30px;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
+/* --- HERO CARDS (Infographic Style) --- */
 .hero-card-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 25px;
-    margin-bottom: 30px;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 30px; position: relative; z-index: 1;
 }
-
 .hero-card {
-    background: #fdfdfd;
-    border-radius: 12px;
-    border: 1px solid var(--border-color);
-    box-shadow: 0 4px 15px var(--shadow-light);
-    padding: 20px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    display: flex; /* Thêm flex để căn chỉnh */
-    flex-direction: column; /* Xếp dọc */
+  background: white; border-radius: 15px;
+  padding: 25px; text-align: center;
+  box-shadow: var(--shadow-soft);
+  border-bottom: 4px solid transparent; /* Chuẩn bị cho hover */
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Hiệu ứng nảy */
+  display: flex; flex-direction: column;
 }
 .hero-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 8px 25px var(--shadow-medium);
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: var(--shadow-medium);
+  border-bottom-color: var(--accent-gold); /* Hiện viền màu khi hover */
 }
-
+/* Ảnh đại diện tròn với viền hào quang */
 .hero-card img {
-    width: 100%;
-    aspect-ratio: 1 / 1; /* Giữ ảnh vuông */
-    object-fit: cover; /* Cắt ảnh vừa khung, không làm méo */
-    border-radius: 8px;
-    margin-bottom: 15px;
-    border: 3px solid white;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  width: 140px; height: 140px; object-fit: cover; border-radius: 50%;
+  margin: -10px auto 20px; /* Đẩy lên trên một chút */
+  border: 4px solid white;
+  box-shadow: 0 0 0 4px var(--accent-gold), var(--shadow-soft); /* Viền kép */
+  transition: transform 0.4s ease;
 }
-
+.hero-card:hover img {
+  transform: rotate(5deg) scale(1.05); /* Xoay nhẹ khi hover */
+  box-shadow: 0 0 0 6px var(--accent-red), var(--shadow-medium); /* Đổi màu viền */
+}
 .hero-card h3 {
-    font-size: 18px;
-    color: var(--accent-dark);
-    margin-top: 0;
-    margin-bottom: 10px;
-    font-weight: 700;
+  font-size: 1.3rem; margin: 10px 0; color: var(--accent-red); font-weight: 700;
+}
+.hero-card p { font-size: 0.95rem; color: var(--text-secondary); flex-grow: 1; }
+/* Style riêng cho câu trích dẫn */
+.hero-card .quote {
+  font-style: italic; color: #555; position: relative; padding: 15px;
+  background: #fffde7; border-radius: 10px; margin: 15px 0;
+  border-left: 4px solid var(--accent-gold);
+}
+.hero-card .quote::before {
+  content: '“'; position: absolute; top: -5px; left: 10px;
+  font-size: 40px; color: var(--accent-gold); opacity: 0.5; font-family: serif;
 }
 
-.hero-card p {
-    font-size: 14px;
-    color: var(--text-muted);
-    line-height: 1.6;
-    margin-bottom: 0;
-    flex-grow: 1; /* Đẩy nội dung xuống */
+/* CTA Cuối section */
+.final-cta {
+  text-align: center; font-size: 1.2rem; margin-top: 40px;
+  padding: 20px; background: rgba(218, 37, 29, 0.05); border-radius: 15px;
+  color: var(--accent-red); font-weight: 600;
 }
 
-/* CSS cho câu quote của Mẹ Lạng */
-.hero-card p.quote {
-    font-size: 15px;
-    font-style: italic;
-    color: var(--text-main);
-    font-weight: 600;
-    border-left: 3px solid var(--accent);
-    padding-left: 10px;
-    margin-top: 5px;
-    text-align: left; /* Căn lề trái cho quote */
-}
-
-.hero-legacy-panel .final-cta, .peacetime-heroes-panel .final-cta {
-    font-weight: 600;
-    color: var(--accent);
-    font-size: 18px;
-    margin-bottom: 0;
-}
-.hero-legacy-panel .final-cta strong, .peacetime-heroes-panel .final-cta strong {
-    color: var(--accent-dark);
-}
-
-/* --- CSS CHO KHỐI CAM KẾT THANH NIÊN --- */
+/* --- PLEDGE PANEL (Cam kết) --- */
 .pledge-panel {
-    max-width: 1100px;
-    margin: 50px auto;
-    padding: 30px;
-    text-align: center;
+    background: linear-gradient(135deg, #fff8e1, #fffde7); /* Nền vàng nhạt */
+    border: 2px solid var(--accent-gold);
+    box-shadow: 0 15px 40px rgba(255, 199, 44, 0.2);
 }
-
-.pledge-panel h2 {
-    color: var(--accent-dark);
-    font-size: 2.2em;
-    font-weight: 700;
-}
-
-.pledge-panel p {
-    font-size: 1.1em;
-    color: var(--text-main);
-    max-width: 800px;
-    margin: 15px auto 30px auto;
-}
-
+.pledge-panel h2 { color: var(--accent-red); }
+.pledge-panel h2::after { background: var(--accent-red); }
 .pledge-box {
-    background: linear-gradient(135deg, #fff3e0, #ffe0b2); /* Màu vàng nhạt, ấm áp */
-    border: 3px solid var(--highlight);
-    border-radius: 15px;
-    padding: 30px 40px;
-    box-shadow: 0 10px 30px rgba(255, 193, 7, 0.2);
-    display: inline-block;
-    max-width: 700px;
-    width: 100%;
+  background: white; padding: 40px; border-radius: 20px;
+  box-shadow: inset 0 0 20px rgba(255, 199, 44, 0.1);
+  position: relative; max-width: 800px; margin: 0 auto;
+  border: 3px dashed var(--accent-gold); /* Viền nét đứt */
+}
+/* Huy hiệu cam kết */
+.pledge-box::before {
+    content: 'CAM KẾT'; position: absolute; top: -20px; left: 50%; transform: translateX(-50%);
+    background: var(--accent-red); color: white; padding: 8px 25px;
+    border-radius: 20px; font-weight: 700; font-size: 14px;
+    box-shadow: 0 4px 10px rgba(218, 37, 29, 0.3);
+}
+.pledge-quote {
+  font-size: 1.4rem; font-weight: 600; color: #d84315; /* Màu cam đậm */
+  font-style: italic; line-height: 1.4;
 }
 
-.pledge-quote {
-    font-size: 1.3em;
-    font-weight: 600;
-    color: #f57f17; /* Màu cam đậm */
-    line-height: 1.5;
-    margin: 0;
-    font-style: italic;
+/* --- MAIN CREATION TOOL --- */
+main {
+  display: grid; grid-template-columns: 1fr 450px; gap: 40px;
+  max-width: 1200px; margin: 40px auto; padding: 0 30px;
 }
+.panel.creation-tool {
+    background: white; padding: 30px; border-radius: 20px;
+    box-shadow: var(--shadow-medium);
+}
+.form-group { margin-bottom: 25px; }
+label { display: block; margin-bottom: 10px; font-weight: 600; color: var(--text-primary); }
+input, select, textarea {
+  width: 100%; padding: 14px; border: 2px solid var(--border-light);
+  border-radius: 12px; font-family: inherit; font-size: 15px;
+  transition: all 0.3s ease; background: #fdfdfd;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--accent-gold); box-shadow: 0 0 0 4px rgba(255, 199, 44, 0.15); outline: none;
+}
+textarea { resize: vertical; height: 120px; }
+.char-count { text-align: right; font-size: 0.85rem; color: #999; margin-top: 5px; }
+
+/* Templates Selection */
+.templates-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 15px;
+}
+.template-option {
+  background: #f5f5f5; border: 3px solid transparent; border-radius: 15px;
+  padding: 15px; text-align: center; cursor: pointer;
+  transition: all 0.3s ease;
+}
+.template-option:hover { background: #f0f0f0; transform: translateY(-3px); }
+.template-option.selected {
+  border-color: var(--accent-red); background: #ffebee;
+  box-shadow: 0 5px 15px rgba(218, 37, 29, 0.2);
+}
+.template-icon { font-size: 32px; display: block; margin-bottom: 8px; }
+
+/* --- CARD PREVIEW --- */
+.card-preview-container { position: sticky; top: 100px; }
+.card-preview-label {
+    text-align: center; font-weight: 700; color: var(--accent-red); margin-bottom: 20px; font-size: 1.2rem;
+}
+.card {
+  width: 100%; aspect-ratio: 3/4; /* Tỷ lệ dọc */
+  background: white; border-radius: 25px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+  position: relative; overflow: hidden;
+  display: flex; flex-direction: column;
+  transition: transform 0.3s ease;
+}
+.card:hover { transform: scale(1.02); }
+.card-decor { position: absolute; inset: 0; z-index: 0; }
+.card-content {
+  position: relative; z-index: 1; flex-grow: 1;
+  padding: 40px 30px; display: flex; flex-direction: column; justify-content: center; text-align: center;
+}
+.card h2 { font-size: 1.6rem; margin-bottom: 20px; color: var(--text-primary); }
+.card p.message {
+    font-size: 1.2rem; line-height: 1.6; color: #444;
+    font-style: italic; margin-bottom: 30px;
+}
+.card p.sign { font-weight: 600; color: var(--accent-red); font-size: 1.1rem; }
+.card-footer {
+  text-align: center; padding: 15px; font-size: 0.9rem; font-weight: 600;
+  color: white; background: var(--accent-red); z-index: 1;
+}
+
+/* --- GALLERY --- */
+.gallery-section { background: #fff; border-top: 5px solid var(--accent-gold); }
+.gallery-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px;
+}
+.gallery-item {
+    background: white; border-radius: 15px; padding: 25px;
+    box-shadow: var(--shadow-soft); border: 2px solid var(--border-light);
+    display: flex; flex-direction: column;
+    transition: all 0.3s ease;
+    position: relative;
+}
+/* Hiệu ứng ghim giấy */
+.gallery-item::before {
+    content: ''; position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
+    width: 20px; height: 20px; background: #aaa; border-radius: 50%;
+    box-shadow: inset 0 -2px 5px rgba(0,0,0,0.2);
+}
+.gallery-item:hover { transform: translateY(-5px) rotate(1deg); box-shadow: var(--shadow-medium); border-color: var(--accent-gold); }
+.gallery-item .to { font-weight: 700; color: var(--accent-red); margin-bottom: 15px; }
+.gallery-item .msg { flex-grow: 1; font-style: italic; color: #555; margin-bottom: 20px; position: relative; padding-left: 15px; }
+.gallery-item .msg::before { content: '“'; position: absolute; left: 0; top: -5px; font-size: 30px; color: var(--accent-gold); opacity: 0.5; }
+.gallery-item .sign { text-align: right; font-weight: 600; color: var(--text-secondary); }
+
+/* --- FOOTER --- */
+footer {
+  background: #333; color: #ccc; text-align: center; padding: 40px 20px;
+  font-size: 0.95rem;
+}
+footer p { max-width: 600px; margin: 0 auto 10px; }
+footer .highlight-gold { color: var(--accent-gold); }
+
+/* --- MEDIA QUERIES --- */
+@media (max-width: 900px) {
+  main { grid-template-columns: 1fr; }
+  .card-preview-container { position: static; margin-bottom: 40px; }
+  .card { max-width: 400px; margin: 0 auto; }
+}
+@media (max-width: 600px) {
+  header { flex-direction: column; gap: 15px; padding: 20px; text-align: center; }
+  .brand { flex-direction: column; }
+  .hero-card-container { grid-template-columns: 1fr; }
+  section h2 { font-size: 1.8rem; }
+}
+
+/* --- ANIMATIONS & DECOR STYLES --- */
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+@keyframes pulse-gold { 0% { box-shadow: 0 0 0 0 rgba(255, 199, 44, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(255, 199, 44, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 199, 44, 0); } }
+
+/* Theme-specific Card Styles */
+.card[data-theme="peace"] {
+    background: linear-gradient(180deg, #e3f2fd, #bbdefb); color: #0d47a1;
+}
+.card[data-theme="peace"] .card-footer { background: #1976d2; }
+.card[data-theme="peace"] .card-decor svg { fill: #90caf9; opacity: 0.4; animation: float 6s ease-in-out infinite; }
+
+.card[data-theme="love"] {
+    background: linear-gradient(180deg, #ffebee, #ffcdd2); color: #b71c1c;
+}
+.card[data-theme="love"] .card-footer { background: #d32f2f; }
+.card[data-theme="love"] .card-decor svg { fill: #ef9a9a; opacity: 0.4; animation: float 7s ease-in-out infinite reverse; }
+
+.card[data-theme="future"] {
+    background: linear-gradient(180deg, #e8f5e9, #c8e6c9); color: #1b5e20;
+}
+.card[data-theme="future"] .card-footer { background: #388e3c; }
+.card[data-theme="future"] .card-decor svg { fill: #a5d6a7; opacity: 0.4; animation: float 8s ease-in-out infinite;
